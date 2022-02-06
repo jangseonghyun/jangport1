@@ -1,0 +1,64 @@
+body,html{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+#container{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+}
+
+#logo{
+    flex-grow:1;
+    background-color:red;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#logo > a:hover{
+    text-decoration:none;
+}
+
+#logo > a:link{
+    text-decoration:none;
+}
+
+#logo > a:visited{
+    text-decoration:none;
+}
+
+#content{
+    flex-grow:7;
+    background-color:blue;
+    display:flex;
+
+}
+
+#content_1{
+    flex-grow:1;
+    background-color:orange;
+}
+
+#content_2{
+    flex-grow:1;
+    background-color:orangered;
+}
+
+#content_3{
+    flex-grow:1;
+    background-color:aqua;
+}
+
+#footer{
+    flex-grow:1;
+    background-color:gray;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+

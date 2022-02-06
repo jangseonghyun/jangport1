@@ -1,0 +1,179 @@
+body,html{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+#container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%;
+}
+
+#logo{
+    flex-grow:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#logo > div > a:hover, a:link, a:visited{
+    text-decoration:none;
+    font-size:30px;
+    color:black;
+}
+
+#content{
+    flex-grow:6;
+    width:60%;
+    display:flex;
+    justify-content:center;
+}
+
+#content_1{
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#profile{
+    width:80%;
+    height:40%;
+    border:1px black solid;
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#profileImg{	
+	border-radius:70%;
+    overflow:hidden;
+	width:100px;
+	height:100px;
+}
+
+#myprofile{
+    flex-grow:1;
+    display:flex;
+    justify_content:center;
+	align-items:center;
+}
+
+.myprofile_layout{
+	width:60%;
+}
+
+#myprofile_1{
+	flex-grow:1;
+	display:flex;
+	justify_content:center;
+	align-items:center;
+}
+
+#myprofile_2{
+	flex-grow:1;
+	display:flex;
+	justify_content:center;
+	align-items:center;
+}
+
+#otherInfo{
+    width:80%;
+    height:40%;
+    border:1px black solid;
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#info{
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+
+.layout{
+	width:100%;	
+}
+
+.info_content{
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items:center;
+}
+
+.info_content_1{
+	width:50%;
+	flex-grow:1;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+#content_2{
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#chgpw{
+    width:80%;
+    height:40%;
+    border:1px black solid;
+    flex-grow:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#chgpw_1{
+    flex-grow:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#blank{
+    width:80%;
+    height:40%;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+}
+
+#blank_1{
+    flex-grow:1;
+}
+
+a > button{
+    width:200px;
+    height:25%;
+}
+
+#footer{
+    width:100%;
+    flex-grow:1;
+    background-color:gray;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}

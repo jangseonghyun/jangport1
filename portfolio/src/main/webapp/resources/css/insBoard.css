@@ -1,0 +1,88 @@
+body,html{
+    width:100vw;
+    height:auto;
+    margin:0;
+    padding:0;
+}
+
+.container{
+	width:100vw;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.logo{
+	width:100%;
+	height:10vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.logo > a:link, a:hover, a:visited{
+    text-decoration:none;
+    color:black;
+    font-size:20px;
+}
+
+.content{
+	width:100%;
+	height:75vh;
+	border:1px black solid;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.title { width:1198px; height:3vh; margin-bottom:2vh; }
+
+input[type="file"] { margin-top:1vh; width:1198px; }
+
+.subBtn { margin-top:2vh; width:100%; height:4vh; display:flex; flex-direction:row; justify-content:center; }
+.subBtn > :nth-child(1) { width:10%; height:100%; }
+.subBtn > :nth-child(2) { margin-left:1vw; width:10%; height:100%; }
+
+.footer{
+	margin-bottom:0;
+	height:15vh;
+   	width:100%;
+    background-color:lightgray;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* 사용안함
+
+.content_1{
+    width:80%;
+    display:flex;
+    margin-bottom:1%;
+}
+
+.content_1 > a > button{
+    width:100px;
+    height:40px;
+}
+
+.content_2{
+    width:80%;
+    height:50%;
+}
+
+.content_2 > form > textarea{
+    height:300px;
+    margin-bottom:1%;
+}
+
+.content_2 > form > textarea , input{
+    box-sizing:border-box;
+    width:100%;
+    font-size:20px;
+    margin-bottom:1%;
+}
+*/

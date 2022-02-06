@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+	
+	<resultMap type="com.jang.portfolio.board.service.impl.BoardVO" id="BoardVO">
+		<result property="i_user" column="i_user"/>
+		<result property="i_board" column="i_board"/>
+		<result property="title" column="title"/>
+		<result property="ctnt" column="ctnt"/>
+		<result property="r_dt" column="r_dt"/>
+		<result property="nm" column="nm"/>
+		<result property="listCnt" column="listCnt"/>
+	</resultMap>
+	
+	<!-- 
+	useGenerateKeys="true" keyProperty="i_board"를 설정하게 되면
+	insert문에 있는 i_board의 pk값을 parameterType인 BoardVO에 저장(?)해준다.
+	 -->
+	<insert id="insBoard" parameterType="com.jang.portfolio.board.service.impl.BoardVO">
+		INSERT INTO port_board	
+		(title, ctnt, nm, cnt, i_user, file1, file2, file3)
+		values
+		(#{title}, #{ctnt}, #{nm}, #{cnt}, #{i_user},
+		<foreach collection="fileNm" item="arr" index="index" separator=", ">
+			'${fileNm[index]}'
+		</foreach>
+		)
+	</insert>
+		
+	<select id="selBoardList" parameterType="java.util.Map"
+	resultMap="BoardVO">
+	 
+	 	SELECT
+	 	i_board,title, nm, r_dt
+	 	FROM port_board
+	 	WHERE is_del = 0
+	 	ORDER BY i_board desc
+	 	LIMIT #{startList}, #{listSize}
+	 	
+	</select>
+	
+	<select id="getBoardListCnt" parameterType="com.jang.portfolio.board.service.impl.BoardVO"
+	resultType="integer">
+		SELECT
+		count(*) as listCnt
+		FROM
+		port_board
+	</select>
+	
+	<select id="selBoard" parameterType="com.jang.portfolio.board.service.impl.BoardVO"
+	resultType="com.jang.portfolio.board.service.impl.BoardVO">
+		SELECT
+		i_user, i_board, title, nm, r_dt, ctnt, file1, file2, file3
+		FROM port_board
+		WHERE i_board IN(
+			( SELECT i_board FROM port_board WHERE <![CDATA[i_board > #{i_board} ]]> ORDER BY i_board ASC LIMIT 1 )
+			, #{i_board}
+			, ( SELECT i_board FROM port_board WHERE <![CDATA[i_board < #{i_board} ]]> ORDER BY i_board DESC LIMIT 1 )
+		)
+		
+	</select>
+	<!-- 
+	<select id="selNxtPrv" parameterType="com.jang.portfolio.board.service.imple.BoardVO"
+	resultType="com.jang.portfolio.board.service.impl.BoardVO">
+	 
+		SELECT 
+		i_user, i_board, title, nm, r_dt, ctnt
+		FROM port_board
+		WHERE i_board IN(
+			
+		)
+	 
+	</select>
+	-->
+	<select id="getAjaxSearchCnt" parameterType="com.jang.portfolio.board.service.impl.BoardVO"
+	resultType="integer">
+		SELECT
+		count(*) as listCnt
+		FROM
+		port_board
+		WHERE
+		<if test="title != '' &amp;&amp; ctnt == '' "> title LIKE CONCAT('%', #{title}, '%') </if>
+		<if test="title == '' &amp;&amp; ctnt != '' "> ctnt LIKE CONCAT('%', #{ctnt}, '%') </if>
+		<if test="title != '' &amp;&amp; ctnt != '' "> ctnt LIKE CONCAT('%', #{ctnt}, '%') or title like CONCAT('%',#{title},'%') </if>
+		
+	</select>
+	
+	<select id="ajaxSearch" parameterType="java.util.Map"
+	resultType="BoardVO">
+		
+		SELECT
+		i_user, i_board, title, nm, r_dt, ctnt
+		FROM port_board
+		WHERE 
+		<if test="title != '' &amp;&amp; ctnt == '' "> title LIKE CONCAT('%', #{title}, '%') </if>
+		<if test="title == '' &amp;&amp; ctnt != '' "> ctnt LIKE CONCAT('%', #{ctnt}, '%') </if>
+		<if test="title != '' &amp;&amp; ctnt != '' "> ctnt LIKE CONCAT('%', #{ctnt}, '%') or title like CONCAT('%',#{title},'%') </if>
+		ORDER BY i_board desc
+		LIMIT #{startList}, #{listSize}
+		
+	</select>
+	
+	<select id="excelDownLoad" parameterType="java.util.ArrayList"
+	resultMap="BoardVO">
+		
+		<!-- array를 사용할 경우(변수 이름은 array가 아니어도 됨) -->
+		SELECT  
+		<foreach item="arr" collection="array" index="index"  open=" " close=" " separator=", ">
+			${array[index]}
+		</foreach>
+		FROM port_board
+		
+	</select>
+	
+	<update id="delBoard" parameterType="com.jang.portfolio.board.service.impl.BoardVO">
+		UPDATE PORT_BOARD
+		SET is_del = 1
+		WHERE i_board = #{i_board}
+	</update>
+	
+	<!-- 별점 
+	<insert id="rating" parameterType="com.jang.portfolio.board.service.BoardRatingVO">
+		INSERT INTO rating
+		(cmt_wirtier, cmt_star, cmt_content, cmt_move)
+		VALUES
+		(#{cmt_wirtier}, #{cmt_star}, #{cmt_content}, #{cmt_move})
+	</insert>
+	
+		
+	<insert id="uploadImg" parameterType="com.jang.portfolio.board.service.BoardImgVO">
+		INSERT INTO port_imgboard
+		(i_user, img)
+		VALUES
+		(#{i_user}, #{img})
+	</insert>
+	<select id="selImgList" parameterType="com.jang.portfolio.board.service.BoardImgVO"
+	resultType="com.jang.portfolio.board.servcie.BoardImgVO">
+		
+		SELECT
+		img_board, img
+		FROM port_imgboard
+		ORDER BY img_board DESC
+		
+	</select>
+	<select id="selRating" parameterType="com.jang.portfolio.board.service.BoardRatingVO"
+	resultType="com.jang.portfolio.board.service.BoardRatingVO">
+		
+		SELECT
+		cmt_num, cmt_wirtier, cmt_star, cmt_content, cmt_move,cmt_reg_date
+		from rating
+		ORDER BY cmt_num DESC
+	
+	</select>
+	
+	<delete id="delImg" parameterType="com.jang.portfolio.board.service.BoardImgVO">
+	
+		DELETE
+		FROM port_imgboard
+		WHERE i_board = #{i_board}
+		
+	</delete>
+	-->
+</mapper>

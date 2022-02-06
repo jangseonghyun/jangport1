@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- Type Aliases 설정-->
+	<typeAliases>
+		<typeAlias alias="userVO" 			type="com.jang.portfolio.user.service.impl.UserVO"/>
+		<typeAlias alias="boardVO"			type="com.jang.portfolio.board.service.impl.BoardVO"/>
+	</typeAliases>
+    
+</configuration>

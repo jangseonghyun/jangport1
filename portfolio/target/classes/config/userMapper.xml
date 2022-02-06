@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userDAO">
+	
+	<!-- CRUD -->
+	
+	<insert id="join" parameterType="com.jang.portfolio.user.service.impl.UserVO">
+	
+		INSERT INTO port_user
+		(uid, upw, nm, zoneCode, roadAddr, detailAddr, ph, kakaoId)
+		VALUES
+		(#{uid}, #{upw}, #{nm}, #{zoneCode}, #{roadAddr}, #{detailAddr}, #{ph}, #{kakaoId})
+		
+	</insert>
+	
+	<select id="login" parameterType="com.jang.portfolio.user.service.impl.UserVO" 
+	resultType="com.jang.portfolio.user.service.impl.UserVO">
+		
+		SELECT i_user, uid, upw, nm, zoneCode, roadAddr, detailAddr, email, ph
+		FROM PORT_USER
+		WHERE
+		uid = #{uid} and upw = #{upw}
+	
+	</select>
+	
+	<select id="dupleId" parameterType="com.jang.portfolio.user.service.impl.UserVO" resultType="String">
+			
+		SELECT uid
+		FROM PORT_USER
+		WHERE
+		uid = #{uid}
+		
+	</select>
+	
+	<select id="chkpw" parameterType="com.jang.portfolio.user.service.impl.UserVO"
+	resultType="String">
+		
+		SELECT upw
+		FROM PORT_USER
+		WHERE
+		i_user = #{i_user};
+		
+	</select>
+	
+	<select id="searchId" parameterType="com.jang.portfolio.user.service.impl.UserVO"
+	resultType="com.jang.portfolio.user.service.impl.UserVO">
+		
+		SELECT uid
+		FROM PORT_USER
+		WHERE
+		nm = #{nm} and email = #{email}
+		
+	</select>
+	
+	<select id="kakaoIdChk" parameterType="String" resultType="com.jang.portfolio.user.service.impl.UserVO">
+		
+		SELECT  i_user, uid, upw, nm, kakaoId
+		FROM PORT_USER
+		WHERE
+		kakaoId = #{kakaoId}
+		
+	</select>
+	
+	<select id="searchPw" parameterType="com.jang.portfolio.user.service.impl.UserVO"
+	resultType="com.jang.portfolio.user.service.impl.UserVO">
+		
+		SELECT upw
+		FROM PORT_USER
+		WHERE
+		uid = #{uid} and nm = #{nm} and email = #{email}
+		
+	</select>
+	
+	<update id="updUser" parameterType="com.jang.portfolio.user.service.impl.UserVO">
+		UPDATE port_user
+		SET m_dt = now()
+		<if test='upw != null and upw != ""'>, upw = #{upw}</if>
+		<if test='nm != null and nm != ""'>, nm = #{nm}</if>
+		<if test='detailAddr != null and detailAddr != ""'>, addr = #{addr}</if>
+		<if test='ph != null and ph != ""'>, ph = #{ph}</if>
+		<if test='profile != null and ph != ""'>, profile = #{profile}</if>
+		WHERE i_user = #{i_user}
+	</update>
+	
+</mapper>
